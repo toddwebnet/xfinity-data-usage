@@ -7,7 +7,6 @@
 
 namespace App\Console\Commands;
 
-
 use App\Models\Usage;
 use Illuminate\Console\Command;
 
@@ -44,6 +43,13 @@ class Import extends Command
                 if ($lastDay !== null) {
                     $usage['delta'] -= $lastDay->total;
                 }
+
+                Usage::where([
+                    'month' => $usage['month'],
+                    'year' => $usage['year'],
+                    'day' => $usage['day']
+                ])->delete();
+
                 Usage::create($usage);
             }
         }
