@@ -18,7 +18,8 @@ class Import extends Command
     {
         $usageFilePath = app()->storagePath() . '/usage.json';
         $data = json_decode(file_get_contents($usageFilePath));
-        $today = time();
+        $today = strtotime(date("Y-m-d", time()));
+    
         foreach ($data->usageMonths as $month) {
             $begin = strtotime($month->startDate);
             $end = strtotime($month->endDate);
